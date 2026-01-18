@@ -30,7 +30,7 @@ function initSpotlight() {
             category: "WEBSITE",
             desc: "One of my most recent works",
             tech: "UI/UX • Laravel",
-            img: "https://github.com/CRAEZIAN/Guillermo/blob/main/projects/screenshot%20one%20health/Landing_Page_(Desktop).png",
+            img: "projects/screenshot one health/Landing_Page_(Desktop).png",
             link: "#gallery-one-health"
         },
         {
@@ -38,7 +38,7 @@ function initSpotlight() {
             category: "ART ACCOUNT",
             desc: "My art account where all my art is posted.",
             tech: "Drawing • Painting • Photography",
-            img: "https://github.com/CRAEZIAN/Guillermo/blob/main/projects/pics/crazianpage.png",
+            img: "projects/pics/crazianpage.png",
             link: "https://github.com/CRAEZIAN"
         },
         {
@@ -46,7 +46,7 @@ function initSpotlight() {
             category: "PERSONAL INSTAGRAM ACCOUNT",
             desc: "Personal Account where I post my most recent outfits",
             tech: "Photography • Editing • Social Media",
-            img: "https://github.com/CRAEZIAN/Guillermo/blob/main/projects/pics/8.png",
+            img: "projects/pics/8.png",
             link: "https://www.instagram.com/emjmg/"
         },
         {
@@ -54,7 +54,7 @@ function initSpotlight() {
             category: "WHO IS",
             desc: "A page dedicated to me hehe",
             tech: "Background • Hobby",
-            img: "https://github.com/CRAEZIAN/Guillermo/blob/main/projects/pics/Aboutme.jpg",
+            img: "projects/pics/Aboutme.jpg",
             link: "about.html"
         }
     ];
