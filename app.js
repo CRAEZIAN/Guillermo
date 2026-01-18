@@ -24,15 +24,13 @@ function initSpotlight() {
     if (!sTitle || !sImg) return;
 
     // Spotlight Data
-    const imgPath = encodeURI(p.img);
-        sImg.src = imgPath;
     const spotlightProjects = [
         {
             title: "OHE HEALTH",
             category: "WEBSITE",
             desc: "One of my most recent works",
             tech: "UI/UX • Laravel",
-            img: "projects/screenshot one health/Landing_Page_(Desktop).png",
+            img: "https://github.com/CRAEZIAN/Guillermo/blob/main/projects/screenshot%20one%20health/Landing_Page_(Desktop).png",
             link: "#gallery-one-health"
         },
         {
@@ -40,7 +38,7 @@ function initSpotlight() {
             category: "ART ACCOUNT",
             desc: "My art account where all my art is posted.",
             tech: "Drawing • Painting • Photography",
-            img: "projects/pics/crazianpage.png",
+            img: "https://github.com/CRAEZIAN/Guillermo/blob/main/projects/pics/crazianpage.png",
             link: "https://github.com/CRAEZIAN"
         },
         {
@@ -56,7 +54,7 @@ function initSpotlight() {
             category: "WHO IS",
             desc: "A page dedicated to me hehe",
             tech: "Background • Hobby",
-            img: "projects/pics/Aboutme.jpg",
+            img: "https://github.com/CRAEZIAN/Guillermo/blob/main/projects/pics/Aboutme.jpg",
             link: "about.html"
         }
     ];
