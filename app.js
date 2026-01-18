@@ -39,7 +39,7 @@ function initSpotlight() {
             desc: "My art account where all my art is posted.",
             tech: "Drawing • Painting • Photography",
             img: "projects/pics/crazianpage.png",
-            link: "https://github.com/CRAEZIAN"
+            link: "https://www.instagram.com/crazian_art/"
         },
         {
             title: "EMJMG",
