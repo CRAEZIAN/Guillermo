@@ -68,7 +68,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: "Fredoka";
-  background-image: url(/projects/pics/Aboutme.jpg);
+  background-image: url(projects/pics/Aboutme.jpg);
   height: 100vh;
   color: var(--text-white);
   line-height: 1.6;
@@ -1505,7 +1505,7 @@ body.page-about {
   background-repeat: no-repeat;
   display: grid;
   place-items: center;
-  background-image: url(/projects/pics/Aboutme.jpg);
+  background-image: url(projects/pics/Aboutme.jpg);
 }
 
 /* Background layer (z-index: 1) */
