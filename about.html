@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>About - Medge Jhel M. Guillermo</title>
+  <link rel="stylesheet" href="aboutme.css" />
+</head>
+
+<body class="page-about">
+  <!-- Mobile toggle button -->
+  <button class="nav-toggle" aria-label="Open menu" aria-controls="navbar" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- Overlay when sidebar is open -->
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- Same navbar system from your index.html -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <ul class="nav-menu">
+        <li class="nav-item"><a class="nav-link" href="index.html#hero">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#about-hero">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#bio">Bio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#timeline">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="#cta">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- =========================
+       SECTION 1 (STICKY HERO)
+       - BG: aboutme.jpg (z-index: 1)
+       - Title: z-index: 10
+       - Overlay PNG appears on scroll: z-index: 50
+  ========================== -->
+  <section class="about-hero-wrap" id="about-hero" aria-label="About hero">
+    <div class="about-hero">
+      <div class="about-hero-bg" aria-hidden="true"></div>
+
+      <h1 class="about-hero-title">
+        <span class="about-hero-plus">++</span>
+        <span class="about-hero-name">MEDGE JHEL M. GUILLERMO</span>
+      </h1>
+
+      <!-- NOTE: your uploaded file is named "Aboutme.png" (capital A). -->
+      <img
+        class="about-hero-overlay"
+        id="aboutOverlay"
+        src="/projects/pics/Aboutme.png"
+        alt="Portrait cutout of Medge Jhel M. Guillermo"
+        loading="eager"
+        decoding="async"
+      />
+
+      <div class="about-hero-scrollhint" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="about-hero-scrollline"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       SECTION 2
+  ========================== -->
+  <section class="about-section" id="bio">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle">A quick snapshot</p>
+      </div>
+
+      <p class="about-lead">
+        I’m a 4th Year Information Technology student from Cavite State University – Silang, Cavite.
+        I design interfaces, build web projects, and make art on the side.
+      </p>
+
+      <div class="about-grid">
+        <article class="about-card">
+          <h3 class="about-card-title">What I do</h3>
+          <p class="about-card-text">UI/UX • Web Development • Prototyping • Front-end</p>
+        </article>
+
+        <article class="about-card">
+          <h3 class="about-card-title">Tools I like</h3>
+          <p class="about-card-text">Figma • HTML/CSS/JS • Laravel • React • MySQL</p>
+        </article>
+
+        <article class="about-card">
+          <h3 class="about-card-title">Outside tech</h3>
+          <p class="about-card-text">Art account: @crazian_art • Cafe hunting • Photography</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       SECTION 3
+  ========================== -->
+  <!-- =========================
+     SECTION 3 (GALLERY / POLAROID DECK)
+========================== -->
+<section class="about-section alt gallery-section" id="timeline">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Gallery</h2>
+      <p class="section-subtitle">A few snapshots</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="gallery-tabs" role="tablist" aria-label="Gallery categories">
+      <button class="tab-btn is-active" type="button" role="tab" aria-selected="true" data-gallery="myself">
+        Myself
+      </button>
+      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-gallery="art">
+        Art
+      </button>
+      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-gallery="photography">
+        Café
+      </button>
+    </div>
+
+    <!-- Polaroid Deck -->
+    <div class="polaroid-stage" aria-label="Polaroid deck">
+      <div class="polaroid-deck" id="polaroidDeck"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="deck-controls">
+      <button class="deck-btn" id="prevPolaroid" type="button" aria-label="Previous photo">Prev</button>
+      <button class="deck-btn" id="nextPolaroid" type="button" aria-label="Next photo">Next</button>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- =========================
+       SECTION 4 (CTA)
+  ========================== -->
+  <section class="about-cta" id="cta">
+    <div class="container">
+      <div class="cta-card">
+        <h2 class="cta-title">Want to work together?</h2>
+        <p class="cta-text">Let’s talk UI/UX, web, or anything creative.</p>
+
+        <div class="cta-actions">
+          <a class="btn-primary" href="index.html#contact">Message me</a>
+          <a class="btn-secondary" href="/Files/Resume.pdf" download>Download CV</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p>&copy; 2025. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+
+  <!-- Scroll-driven reveal for the overlay PNG (safe-only on about page) -->
+  <script>
+    (function () {
+        const wrap = document.querySelector(".about-hero-wrap");
+        const overlay = document.getElementById("aboutOverlay");
+        if (!wrap || !overlay) return;
+
+        // If user prefers reduced motion, just show it (no animation)
+        const prefersReduced =
+        window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (prefersReduced) {
+        overlay.style.opacity = "1";
+        overlay.style.transform = "translateY(0px)";
+        return;
+        }
+
+        // Tweak these to taste
+        const start = 0.10;   // when reveal starts (0..1)
+        const end = 0.9;     // when reveal ends (0..1)
+        const fly = 50;       // px: starts lower and flies up
+        const baseScale = 0.92;
+        const scaleGain = 0.10;
+
+        let ticking = false;
+
+        function clamp(n, a, b) {
+        return Math.min(Math.max(n, a), b);
+        }
+
+        function easeOutQuad(x) {
+        return 1 - (1 - x) * (1 - x);
+        }
+
+        function update() {
+        const rect = wrap.getBoundingClientRect();
+        const vh = window.innerHeight || 1;
+
+        // progress inside wrapper (0..1)
+        const total = Math.max(rect.height - vh, 1);
+        const scrolled = clamp(-rect.top, 0, total);
+        const t = scrolled / total;
+
+        // map into reveal window (0..1)
+        const p = clamp((t - start) / (end - start), 0, 1);
+        const eased = easeOutQuad(p);
+
+        // fly up + scale in + fade in
+        const y = (1 - eased) * fly;
+        const s = baseScale + scaleGain * eased;
+
+        overlay.style.opacity = eased.toFixed(3);
+        overlay.style.transform = `translateY(${y.toFixed(1)}px) scale(${s.toFixed(3)})`;
+
+        ticking = false;
+        }
+
+        function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+        }
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", update);
+        update();
+    })();
+    
+    </script>
+    <script>
+  (function () {
+    const deckEl = document.getElementById("polaroidDeck");
+    if (!deckEl) return;
+
+    const tabs = Array.from(document.querySelectorAll(".tab-btn[data-gallery]"));
+    const prevBtn = document.getElementById("prevPolaroid");
+    const nextBtn = document.getElementById("nextPolaroid");
+
+    // ✅ Update these to match your real folder names + image filenames
+    const galleries = {
+      myself: {
+        folder: "/gallery/myself/",
+        files: ["5.png", "6.png", "7.png", "8.png", "10.png", "14.png"],
+      },
+      art: {
+        folder: "/gallery/art/",
+        files: [
+            "crown.jpg",
+            "deer.jpg",
+            "drink.jpg",
+            "heavy.jpg",
+            "murky.jpg",
+            "mustache.jpg",
+            "pierce.jpg",
+            "reckless.jpg",
+            "starfish.jpg",
+            "sweep.jpg",
+            "trunk.jpg",
+            "weave.jpg",
+        ],  
+      },
+      photography: {
+        folder: "/gallery/cafe/",
+        files: [
+            "Angel's Cat Cafe.jpg",
+            "Been There Done That.jpg",
+            "Coffee idea.jpg",
+            "Fikastalle.jpg",
+            "HoHo Naicha.jpg",
+            "Pick-Up Coffee.jpg",
+            "Pine Valley.jpg",
+            "Quatro Marias.jpg",
+            "Sabreena's.jpg",
+            "Starbucks Downhill.jpg",
+            "Sugar Cafe.jpg",
+            "Sweet and Savor.jpg",
+            "Tim's Cup.jpg",
+            "What If Coffee.jpg",
+            "Y Dough.jpg",
+        ],
+      },
+    };
+
+    // Stack “look” (offsets/rotations for polaroid pile)
+    const STACK = [
+      { y: 0,  r: -2.5, s: 1.00, z: 50 },
+      { y: 10, r:  2.2, s: 0.985, z: 40 },
+      { y: 20, r: -3.4, s: 0.970, z: 30 },
+      { y: 30, r:  3.0, s: 0.955, z: 20 },
+      { y: 40, r: -1.6, s: 0.940, z: 10 },
+    ];
+
+    let currentKey = "myself";
+    let topIndex = 0;
+    let animating = false;
+
+    function clampIndex(n, len) {
+      return ((n % len) + len) % len;
+    }
+
+    function getList() {
+      return galleries[currentKey]?.files || [];
+    }
+
+    function getSrc(file) {
+      return (galleries[currentKey]?.folder || "/gallery/") + file;
+    }
+
+    function setActiveTab(key) {
+      currentKey = key;
+      topIndex = 0;
+
+      tabs.forEach((btn) => {
+        const active = btn.dataset.gallery === key;
+        btn.classList.toggle("is-active", active);
+        btn.setAttribute("aria-selected", active ? "true" : "false");
+      });
+
+      renderDeck(true);
+    }
+
+    function makeCard(src, captionText) {
+      const card = document.createElement("article");
+      card.className = "polaroid-card";
+
+      const photo = document.createElement("div");
+      photo.className = "polaroid-photo";
+
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = captionText || "Gallery photo";
+      img.loading = "eager";
+      img.decoding = "async";
+
+      const caption = document.createElement("div");
+      caption.className = "polaroid-caption";
+      caption.textContent = captionText || "";
+
+      photo.appendChild(img);
+      card.appendChild(photo);
+      card.appendChild(caption);
+
+      return card;
+    }
+
+    function renderDeck(animateInPrev = false) {
+      const list = getList();
+      deckEl.innerHTML = "";
+
+      if (!list.length) {
+        const empty = document.createElement("div");
+        empty.style.opacity = "0.8";
+        empty.style.textAlign = "center";
+        empty.innerHTML = "No images yet. Add files to your folder and update the JS list.";
+        deckEl.appendChild(empty);
+        return;
+      }
+
+      const count = Math.min(STACK.length, list.length);
+
+      for (let i = 0; i < count; i++) {
+        const idx = clampIndex(topIndex + i, list.length);
+        const file = list[idx];
+        const src = getSrc(file);
+
+        const card = makeCard(src, file.replace(/\.[^/.]+$/, "")); // caption = filename (no extension)
+
+        const st = STACK[i];
+        card.style.zIndex = String(st.z);
+        card.style.transform = `translateY(${st.y}px) rotate(${st.r}deg) scale(${st.s})`;
+
+        if (i === 0) {
+          card.classList.add("is-top");
+          if (animateInPrev) card.classList.add("fly-in-prev");
+        }
+
+        deckEl.appendChild(card);
+      }
+    }
+
+    function nextCard() {
+      const list = getList();
+      if (animating || list.length <= 1) return;
+
+      animating = true;
+      const topCard = deckEl.querySelector(".polaroid-card.is-top");
+      if (!topCard) {
+        animating = false;
+        return;
+      }
+
+      // Animate the top polaroid “away”
+      topCard.classList.add("fly-next");
+
+      topCard.addEventListener(
+        "transitionend",
+        () => {
+          topIndex = clampIndex(topIndex + 1, list.length);
+          renderDeck(false);
+          animating = false;
+        },
+        { once: true }
+      );
+    }
+
+    function prevCard() {
+      const list = getList();
+      if (animating || list.length <= 1) return;
+
+      animating = true;
+      topIndex = clampIndex(topIndex - 1, list.length);
+
+      // Render and animate the new top card “in”
+      renderDeck(true);
+
+      // release lock after animation duration
+      window.setTimeout(() => (animating = false), 430);
+    }
+
+    // Tab clicks
+    tabs.forEach((btn) => {
+      btn.addEventListener("click", () => setActiveTab(btn.dataset.gallery));
+    });
+
+    // Controls
+    nextBtn?.addEventListener("click", nextCard);
+    prevBtn?.addEventListener("click", prevCard);
+
+    // Optional: keyboard arrows when section is visible
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") nextCard();
+      if (e.key === "ArrowLeft") prevCard();
+    });
+
+    // Init
+    setActiveTab(currentKey);
+  })();
+</script>
+
+</body>
+</html>

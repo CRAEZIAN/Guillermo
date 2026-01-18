@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Portfolio Website - Developer & Designer</title>
+  <link rel="canonical" href="https://roycenoel.space/" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet"/>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <meta
+    name="description"
+    content="Explore the portfolio of MJ, an IT student showcasing projects in web, apps, UI/UX, and more."
+  />
+  <meta
+    name="keywords"
+    content="Portfolio, Developer, Designer, Web Development, Projects, UI/UX, Graphics Design"
+  />
+  <meta name="author" content="MJ" />
+
+  <link rel="icon" type="image/png" href="portfolioIcon.png" />
+
+  <meta property="og:title" content="Portfolio Website - MJ" />
+  <meta property="og:description" content="Showcase of web, apps, and creative projects." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://roycenoel.space/" />
+  <meta property="og:image" content="https://roycenoel.space/portfolioIcon.png" />
+
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.19/build/spline-viewer.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    "name": "MJ",
+    "url": "https://roycenoel.space/",
+    "jobTitle": "Developer & Designer",
+    "sameAs": [
+      "https://github.com/roycenoel",
+      "https://www.linkedin.com/in/royce-gonsalves-478782212/",
+      "https://www.instagram.com/royce_gonsalves_/"
+    ],
+    "knowsAbout": ["Web Development", "Graphics Design", "Art", "UI/UX", "Animation"]
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ===========================
+       HERO ACTION BUTTON CLICK FIX
+       (Overrides only; does NOT change layout/design)
+  ============================ -->
+  <style>
+    /* Social icons row */
+    .action__btns{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Button container for each icon */
+    .action__btns a{
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+
+      display: grid;
+      place-items: center;
+
+      background: rgba(38, 46, 35, 0.88);
+      border: 1px solid rgba(38, 46, 35, 0.35);
+
+      box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+
+      /* ensure the anchor remains clickable */
+      position: relative;
+      z-index: 10;
+    }
+
+    .action__btns a:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.24);
+      background: rgba(38, 46, 35, 0.96);
+    }
+
+    /* The actual icon image */
+    .action__btns a img{
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      display: block;
+
+      filter: brightness(0) invert(1);
+
+      /* IMPORTANT: clicking the image should click the <a> */
+      pointer-events: none;
+    }
+
+    /* Optional: make the arrow / resume button look a little special */
+    .action__btns a.seemore{
+      background: rgba(38, 46, 35, 1);
+      border-color: rgba(243, 238, 231, 0.22);
+    }
+
+    /* On mobile center the icons (optional) */
+    @media (max-width: 768px){
+      .action__btns{
+        justify-content: center;
+      }
+    }
+
+    /* Extra safety: modal always shows when not hidden */
+    .modal[hidden] { display: none !important; }
+    .modal:not([hidden]) { display: grid !important; }
+
+    /* =========================================================
+       MAIN CLICK FIX:
+       Your CSS has .hero { z-index:-1; position:sticky; } which
+       places the whole hero behind other layers => not clickable.
+       We only override z-index (no layout changes).
+    ========================================================== */
+    .hero{
+      z-index: 0 !important;
+    }
+
+    /* keep hero content above decorative blob */
+    .hero-container{ position: relative; z-index: 1; }
+    .hero-content{ position: relative; z-index: 2; }
+    .blob{ pointer-events: none; }
+  </style>
+</head>
+
+<body>
+  <!-- Mobile toggle button -->
+  <button class="nav-toggle" aria-label="Open menu" aria-controls="navbar" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- Overlay when sidebar is open -->
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="#hero" class="nav-link active">Home</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+        <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-tagline">4th Year IT Student</span>
+
+        <h1 class="hero-title">
+          Hello, I'm<br />
+          <span class="mj">MJ</span>
+        </h1>
+
+        <div class="profile-section">
+          <p class="bio-text">
+            A 22 year old Information Technology Student in Cavite State University - Silang, Cavite
+          </p>
+
+          <!-- ACTION BUTTONS -->
+          <div class="action__btns">
+            <a href="https://www.facebook.com/medge.jhel.guillermo/" target="_blank" rel="noreferrer" aria-label="Facebook">
+              <img src="icons/fesbuk.png" alt="Facebook" />
+            </a>
+
+            <a href="https://www.instagram.com/crazian_art/" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <img src="icons/instagram.png" alt="Instagram" />
+            </a>
+
+            <a href="https://github.com/CRAEZIAN" target="_blank" rel="noreferrer" aria-label="GitHub">
+              <img src="icons/github.png" alt="GitHub" />
+            </a>
+
+            <a href="/Files/Resume.pdf" class="seemore" download aria-label="Download CV">
+              <img src="icons/resume.png" alt="CV" />
+            </a>
+
+            <a href="about.html" class="seemore" aria-label="More">
+              <img src="icons/right-arrow.png" alt="More" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="blob" aria-hidden="true">
+        <img src="projects/Untitled34_20250618011221.png" alt="Profile image" />
+        <svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 350">
+          <path d="M156.4,339.5c31.8-2.5,59.4-26.8,80.2-48.5c28.3-29.5,40.5-47,56.1-85.1c14-34.3,20.7-75.6,2.3-111  c-18.1-34.8-55.7-58-90.4-72.3c-11.7-4.8-24.1-8.8-36.8-11.5l-0.9-0.9l-0.6,0.6c-27.7-5.8-56.6-6-82.4,3c-38.8,13.6-64,48.8-66.8,90.3c-3,43.9,17.8,88.3,33.7,128.8c5.3,13.5,10.4,27.1,14.9,40.9C77.5,309.9,111,343,156.4,339.5z"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-subtitle">Projects and Activities</p>
+      </div>
+
+      <div class="project-categories">
+        <button class="category-btn active" data-category="all" type="button">All</button>
+        <button class="category-btn" data-category="applications" type="button">One Health</button>
+        <button class="category-btn" data-category="websites" type="button">Nihituwan</button>
+        <button class="category-btn" data-category="programs" type="button">BlakInk</button>
+        <button class="category-btn" data-category="games" type="button">Heap Sort</button>
+        <button class="category-btn" data-category="models3d" type="button">Hotel Management</button>
+        <button class="category-btn" data-category="graphics" type="button">Wellness Depot</button>
+      </div>
+
+      <div class="projects-grid">
+        <!-- ONE HEALTH -->
+        <article class="project-card" data-category="applications">
+          <div class="project-image">
+            <img class="project-icon" src="/projects/screenshot one health/Landing_Page_(Desktop).png" alt="One Health preview" />
+          </div>
+
+          <div class="project-content">
+            <h3 class="project-title">One Health</h3>
+            <p class="project-description">
+              Keeping track of Immunization Records for the barangays of the B.A.Y.A.N.I. Cluster of Silang Cavite,
+              specifically for Children and Mothers.
+            </p>
+
+            <div class="project-features">
+              <ul>
+                <li>Laravel</li>
+                <li>React.js</li>
+                <li>PHP</li>
+              </ul>
+            </div>
+
+            <a
+              href="./spreadlink.html"
+              class="btn-outline js-open-project-modal"
+              data-gallery="gallery-one-health"
+              data-title="One Health"
+            >
+              View Project
+            </a>
+          </div>
+
+          <div class="project-gallery" id="gallery-one-health" hidden>
+            <img src="/projects/screenshot one health/Landing_Page_(Desktop).png" alt="One Health - Landing Page" />
+            <img src="/projects/screenshot one health/Admin add account (pc).png" alt="">
+            <img src="/projects/screenshot one health/Admin add immunization (pc).png" alt="">
+            <img src="/projects/screenshot one health/Admin add pregnancy (pc).png" alt="">
+            <img src="/projects/screenshot one health/Admin dashboard 1 (pc).png" alt="">
+            <img src="/projects/screenshot one health/Admin dashboard 2 (pc).png" alt="">
+            <img src="/projects/screenshot one health/Admin Panel (pc only).png" alt="">
+            <img src="/projects/screenshot one health/BHW add patient (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW add patient immunization (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW add patient preganancy (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW dashboard 1 (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW dashboard 1 (pc).png" alt="">
+            <img src="/projects/screenshot one health/BHW dashboard 2 (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW dashboard 2 (pc).png" alt="">
+            <img src="/projects/screenshot one health/BHW dashboard 3 (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW edit patient immunization (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW edit patient immunization 2 (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW edit patient immunization 3 (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW edit patient preganancy 1 (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW edit patient preganancy 2 (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW edit patient preganancy 3 (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW health center report (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/BHW patient record (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/Landing Page (Mobile).png" alt="">
+            <img src="/projects/screenshot one health/patient access (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/patient access 1 (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/patient announcement (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/patient dashboard (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/patient dashboard 1 (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/patient immunization card (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/patient record (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/patient record 1 (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/patient record legend (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/patient schedule upcoming (mobile).jpg" alt="">
+            <img src="/projects/screenshot one health/patient schedule upcoming detailed (mobile).jpg" alt="">
+          </div>
+        </article>
+
+        <!-- NIHITUWAN / WEBSITES -->
+        <article class="project-card" data-category="websites">
+          <div class="project-image">
+            <img class="project-icon" src="/projects/NIHITUWAN WEB/HOME_LANDING PAGE.png" alt="Nihituwan preview" />
+          </div>
+
+          <div class="project-content">
+            <h3 class="project-title">Nihituwan</h3>
+            <p class="project-description">Nihituwan is a system made for rreal esttate. Fining yourr new home using Nihituwan.</p>
+
+            <div class="project-features">
+              <ul>
+                <li>GUI Display</li>
+                <li>Made with PHP</li>
+                <li>Used Code Igniter</li>
+                <li>Responsive by design</li>
+              </ul>
+            </div>
+
+            <a
+              href="./web.html"
+              class="btn-outline js-open-project-modal"
+              data-gallery="gallery-nihituwan"
+              data-title="Nihituwan"
+            >
+              View Project
+            </a>
+          </div>
+
+          <div class="project-gallery" id="gallery-nihituwan" hidden>
+            <img src="/projects/NIHITUWAN WEB/HOME_LANDING PAGE.png" alt="Nihituwan - Home" />
+            <img src="/projects/NIHITUWAN WEB//PROPERTIES LISTING PAGE (2).png" alt="Nihituwan - Home" />
+            <img src="/projects/NIHITUWAN WEB/PROPERTIES LISTING PAGE (3).png" alt="Nihituwan - Home" />
+            <img src="/projects/NIHITUWAN WEB/PROPERTIES LISTING PAGE (4).png" alt="Nihituwan - Home" />
+            <img src="/projects/NIHITUWAN WEB/PROPERTIES LISTING PAGE.png" alt="Nihituwan - Home" />
+            <img src="/projects/NIHITUWAN WEB/PROPERTIES SECTION (2).png" alt="Nihituwan - Home" />
+            <img src="/projects/NIHITUWAN WEB/PROPERTIES SECTION.png" alt="Nihituwan - Home" />
+            <img src="/projects/NIHITUWAN WEB/SERVICES SECTION (2).png" alt="Nihituwan - Home" />
+            <img src="/projects/NIHITUWAN WEB/SERVICES SECTION (3).png" alt="Nihituwan - Home" />
+            <img src="/projects/NIHITUWAN WEB/SERVICES SECTION (4).png" alt="Nihituwan - Home" />
+            <img src="/projects/NIHITUWAN WEB/SERVICES SECTION (5).png" alt="Nihituwan - Home" />
+            <img src="/projects/NIHITUWAN WEB/SERVICES SECTION.png" alt="Nihituwan - Home" />
+            <img src="/projects/NIHITUWAN WEB/ABOUT SECTION.png" alt="Nihituwan - Home" />
+          </div>
+        </article>
+
+        <!-- BLAKINK / PROGRAMS -->
+        <article class="project-card" data-category="programs">
+          <div class="project-image">
+            <img class="project-icon" src="/projects/BLAKINK/1.png" alt="BlakInk preview" />
+          </div>
+
+          <div class="project-content">
+            <h3 class="project-title">BlakInk</h3>
+            <p class="project-description">
+              BlakInk is an e-commerce system built for artists. >P<
+            </p>
+
+            <div class="project-features">
+              <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JS</li>
+              </ul>
+            </div>
+
+            <a
+              href="./programs.html"
+              class="btn-outline js-open-project-modal"
+              data-gallery="gallery-blakink"
+              data-title="BlakInk"
+            >
+              View Project
+            </a>
+          </div>
+
+          <div class="project-gallery" id="gallery-blakink" hidden>
+            <img src="/projects/BLAKINK/1.png" alt="BlakInk - Screenshot 1" />
+          </div>
+        </article>
+
+        <!-- HEAP SORT -->
+        <article class="project-card" data-category="games">
+          <div class="project-image">
+            <img class="project-icon" src="/projects/heap/a1.png" alt="Heap Sort preview" />
+          </div>
+
+          <div class="project-content">
+            <h3 class="project-title">Heap Sort</h3>
+            <p class="project-description">A visual / interactive project showcasing Heap Sort.</p>
+
+            <div class="project-features">
+              <ul>
+                <li>Algorithm visualization</li>
+                <li>Interactive UI</li>
+                <li>Educational</li>
+              </ul>
+            </div>
+
+            <a
+              href="./games.html"
+              class="btn-outline js-open-project-modal"
+              data-gallery="gallery-heap"
+              data-title="Heap Sort"
+            >
+              View Project
+            </a>
+          </div>
+
+          <div class="project-gallery" id="gallery-heap" hidden>
+            <img src="/projects/heap/a1.png" alt="Heap Sort - Screenshot 1" />
+            <img src="/projects/heap/a2.png" alt="Heap Sort - Screenshot 1" />
+            <img src="/projects/heap/a3.png" alt="Heap Sort - Screenshot 1" />
+            <img src="/projects/heap/a4.png" alt="Heap Sort - Screenshot 1" />
+          </div>
+        </article>
+
+        <!-- HOTEL MANAGEMENT -->
+        <article class="project-card" data-category="models3d">
+          <div class="project-image">
+            <img class="project-icon" src="/projects/hotel/a.png" alt="Hotel Management preview" />
+          </div>
+
+          <div class="project-content">
+            <h3 class="project-title">Hotel Management</h3>
+            <p class="project-description">Project visuals and UI previews for a Hotel Management system.</p>
+
+            <div class="project-features">
+              <ul>
+                <li>System UI</li>
+                <li>First PHP project</li>
+              </ul>
+            </div>
+
+            <a
+              href="./3dmodels.html"
+              class="btn-outline js-open-project-modal"
+              data-gallery="gallery-hotel"
+              data-title="Hotel Management"
+            >
+              View Project
+            </a>
+          </div>
+
+          <div class="project-gallery" id="gallery-hotel" hidden>
+            <img src="/projects/hotel/a.png" alt="Hotel Management - Screenshot 1" />
+            <img src="/projects/hotel/b.png" alt="Hotel Management - Screenshot 1" />
+            <img src="/projects/hotel/c.png" alt="Hotel Management - Screenshot 1" />
+            <img src="/projects/hotel/d.png" alt="Hotel Management - Screenshot 1" />
+            <img src="/projects/hotel/e.png" alt="Hotel Management - Screenshot 1" />
+            <img src="/projects/hotel/f.png" alt="Hotel Management - Screenshot 1" />
+            <img src="/projects/hotel/g.png" alt="Hotel Management - Screenshot 1" />
+            <img src="/projects/hotel/h.png" alt="Hotel Management - Screenshot 1" />
+            <img src="/projects/hotel/i.png" alt="Hotel Management - Screenshot 1" />
+            <img src="/projects/hotel/j.png" alt="Hotel Management - Screenshot 1" />
+            <img src="/projects/hotel/k.png" alt="Hotel Management - Screenshot 1" />
+            <img src="/projects/hotel/l.png" alt="Hotel Management - Screenshot 1" />
+          </div>
+        </article>
+
+        <!-- UI/UX -->
+        <article class="project-card" data-category="graphics">
+          <div class="project-image">
+            <img class="project-icon" src="/projects/WELLNESS/1.png" alt="UI/UX preview" />
+          </div>
+
+          <div class="project-content">
+            <h3 class="project-title">Wellness Depot</h3>
+            <p class="project-description">A system made to track medecine records in a pharmacy.</p>
+
+            <div class="project-features">
+              <ul>
+                <li>Made using Net Beans</li>
+                <li>Wireframing & Prototyping</li>
+                <li>Interactive design</li>
+              </ul>
+            </div>
+
+            <a
+              href="./graphics.html"
+              class="btn-outline js-open-project-modal"
+              data-gallery="gallery-uiux"
+              data-title="UI/UX Design"
+            >
+              View Project
+            </a>
+          </div>
+
+          <div class="project-gallery" id="gallery-uiux" hidden>
+            <img src="/projects/WELLNESS/1.png" alt="UI/UX - Wellness Screenshot 1" />
+            <img src="/projects/WELLNESS/2.png" alt="UI/UX - Rirics Home" />
+            <img src="/projects/WELLNESS/3.png" alt="UI/UX - Rirics Home" />
+            <img src="/projects/WELLNESS/4.png" alt="UI/UX - Rirics Home" />
+            <img src="/projects/WELLNESS/5.png" alt="UI/UX - Rirics Home" />
+            <img src="/projects/WELLNESS/6.png" alt="UI/UX - Rirics Home" />
+            <img src="/projects/WELLNESS/7.png" alt="UI/UX - Rirics Home" />
+            <img src="/projects/WELLNESS/8.png" alt="UI/UX - Rirics Home" />
+            <img src="/projects/WELLNESS/9.png" alt="UI/UX - Rirics Home" />
+            <img src="/projects/WELLNESS/10.png" alt="UI/UX - Rirics Home" />
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPOTLIGHT -->
+  <section class="spotlight" id="about">
+    <div class="container">
+      <div class="spotlight-wrapper">
+        <div class="spotlight-visual">
+          <img id="spotlight-img" src="" alt="Project Preview" />
+        </div>
+
+        <div class="spotlight-info">
+          <span class="spotlight-tag" id="spotlight-cat">Featured Work</span>
+          <h2 id="spotlight-title" class="reveal-text">ONE HEALTH</h2>
+          <p id="spotlight-desc" class="reveal-text">One of my most recent work</p>
+
+          <div class="spotlight-meta">
+            <span id="spotlight-tech">UI/UX • Laravel</span>
+          </div>
+
+          <a id="spotlight-link" href="spreadlink.html" class="btn-outline">View Details</a>
+
+          <div class="progress-bar" aria-hidden="true">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Skills & Technologies</h2>
+        <p class="section-subtitle">What I can use and do</p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-item"><img class="skill-icon-img" src="./js.png" alt="JavaScript" /><span class="skill-name">JavaScript</span></div>
+        <div class="skill-item"><img class="skill-icon-img" src="./Laravel.svg.png" alt="Laravel" /><span class="skill-name">Laravel</span></div>
+        <div class="skill-item"><img class="skill-icon-img" src="./physics.png" alt="React" /><span class="skill-name">React</span></div>
+        <div class="skill-item"><img class="skill-icon-img" src="./node-js.png" alt="Node.js" /><span class="skill-name">Node.js</span></div>
+        <div class="skill-item"><img class="skill-icon-img" src="./java.png" alt="Java" /><span class="skill-name">Java</span></div>
+        <div class="skill-item"><img class="skill-icon-img" src="./mysql-database.png" alt="MySQL" /><span class="skill-name">MySQL</span></div>
+        <div class="skill-item"><img class="skill-icon-img" src="./python.png" alt="Python" /><span class="skill-name">Python</span></div>
+        <div class="skill-item"><img class="skill-icon-img" src="./text.png" alt="CSS" /><span class="skill-name">CSS</span></div>
+        <div class="skill-item"><img class="skill-icon-img" src="./designer (1).png" alt="UI/UX" /><span class="skill-name">UI/UX</span></div>
+        <div class="skill-item"><img class="skill-icon-img" src="./publicity.png" alt="Social Media" /><span class="skill-name">Social Media</span></div>
+        <div class="skill-item"><img class="skill-icon-img" src="./layers.png" alt="Graphic Design" /><span class="skill-name">Graphic Design</span></div>
+        <div class="skill-item"><img class="skill-icon-img" src="./git.png" alt="Git" /><span class="skill-name">Git</span></div>
+        <div class="skill-item"><img class="skill-icon-img" src="./figma.png" alt="Figma" /><span class="skill-name">Figma</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Let's Connect</h2>
+        <p class="section-subtitle">Connect with me</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden="true">📧</div>
+            <div class="contact-details">
+              <h4>Email</h4>
+              <a href="mailto:roycenoel2001@gmail.com">medgejhel@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="social-links">
+            <div class="social-grid">
+              <a href="https://github.com/CRAEZIAN" target="_blank" rel="noreferrer" class="social-link"><span>GitHub</span></a>
+              <a href="https://www.instagram.com/crazian_art/" target="_blank" rel="noreferrer" class="social-link"><span>Instagram</span></a>
+              <a href="https://www.facebook.com/medge.jhel.guillermo/" target="_blank" rel="noreferrer" class="social-link"><span>Facebook</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-container">
+          <form class="contact-form" id="contactForm">
+            <div class="form-field">
+              <input type="text" id="name" name="name" class="form-input" placeholder="Name" required />
+            </div>
+
+            <div class="form-field">
+              <input type="email" id="email" name="email" class="form-input" placeholder="Email" required />
+            </div>
+
+            <div class="form-field">
+              <textarea id="message" name="message" class="form-input" rows="4" placeholder="Message" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+    PROJECT MODAL (GALLERY)
+  ========================================================== -->
+  <div class="modal" id="projectModal" aria-hidden="true" hidden>
+    <div class="modal__overlay" data-modal-close></div>
+
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <header class="modal__header">
+        <h3 class="modal__title" id="modalTitle">Project</h3>
+
+        <button type="button" class="icon-btn modal__close" data-modal-close aria-label="Close modal">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </header>
+
+      <div class="modal__body">
+        <div class="modal__main">
+          <button type="button" class="icon-btn modal__nav modal__nav--prev" data-modal-prev aria-label="Previous image">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <figure class="modal__figure">
+            <img id="modalMainImage" class="modal__img" src="" alt="" />
+          </figure>
+
+          <button type="button" class="icon-btn modal__nav modal__nav--next" data-modal-next aria-label="Next image">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <aside class="modal__thumbs" id="modalThumbs" aria-label="Project images">
+          <!-- thumbs injected by JS -->
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+
+  <script>
+    (function () {
+      const modal = document.getElementById("projectModal");
+      const titleEl = document.getElementById("modalTitle");
+      const mainImg = document.getElementById("modalMainImage");
+      const thumbsEl = document.getElementById("modalThumbs");
+
+      const btnPrev = modal.querySelector("[data-modal-prev]");
+      const btnNext = modal.querySelector("[data-modal-next]");
+      const closeEls = modal.querySelectorAll("[data-modal-close]");
+
+      let images = [];
+      let index = 0;
+      let lastActiveEl = null;
+
+      function setModalOpen(isOpen) {
+        modal.hidden = !isOpen;
+        modal.setAttribute("aria-hidden", String(!isOpen));
+      }
+
+      function buildThumbs() {
+        thumbsEl.innerHTML = "";
+
+        images.forEach((imgObj, i) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "modal__thumb" + (i === index ? " is-active" : "");
+          btn.setAttribute("aria-label", "View image " + (i + 1));
+
+          const img = document.createElement("img");
+          img.className = "modal__thumb-img";
+          img.src = imgObj.src;
+          img.alt = imgObj.alt;
+
+          btn.appendChild(img);
+          btn.addEventListener("click", () => setIndex(i));
+
+          thumbsEl.appendChild(btn);
+        });
+      }
+
+      function render() {
+        if (!images.length) return;
+
+        const current = images[index];
+        mainImg.src = current.src;
+        mainImg.alt = current.alt || (titleEl.textContent + " image " + (index + 1));
+
+        buildThumbs();
+      }
+
+      function setIndex(newIndex) {
+        if (!images.length) return;
+        index = (newIndex + images.length) % images.length;
+        render();
+      }
+
+      function openModalFromLink(linkEl) {
+        const galleryId = linkEl.dataset.gallery;
+        const title = linkEl.dataset.title || "Project";
+
+        const galleryEl = document.getElementById(galleryId);
+        if (!galleryEl) return;
+
+        const imgs = Array.from(galleryEl.querySelectorAll("img"));
+        images = imgs.map((img, i) => ({
+          src: img.getAttribute("src"),
+          alt: img.getAttribute("alt") || (title + " image " + (i + 1))
+        }));
+
+        if (!images.length) return;
+
+        lastActiveEl = linkEl;
+        index = 0;
+
+        titleEl.textContent = title;
+        setModalOpen(true);
+        render();
+
+        const closeBtn = modal.querySelector(".modal__close");
+        if (closeBtn) closeBtn.focus();
+      }
+
+      function closeModal() {
+        setModalOpen(false);
+        thumbsEl.innerHTML = "";
+        mainImg.src = "";
+        mainImg.alt = "";
+
+        if (lastActiveEl) lastActiveEl.focus();
+        lastActiveEl = null;
+        images = [];
+        index = 0;
+      }
+
+      document.addEventListener("click", (e) => {
+        const link = e.target.closest(".js-open-project-modal");
+        if (!link) return;
+
+        e.preventDefault();
+        openModalFromLink(link);
+      });
+
+      closeEls.forEach((el) => el.addEventListener("click", closeModal));
+
+      btnPrev.addEventListener("click", () => setIndex(index - 1));
+      btnNext.addEventListener("click", () => setIndex(index + 1));
+
+      document.addEventListener("keydown", (e) => {
+        if (modal.hidden) return;
+
+        if (e.key === "Escape") closeModal();
+        if (e.key === "ArrowLeft") setIndex(index - 1);
+        if (e.key === "ArrowRight") setIndex(index + 1);
+      });
+    })();
+  </script>
+</body>
+</html>
