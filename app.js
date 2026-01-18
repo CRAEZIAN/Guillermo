@@ -85,7 +85,7 @@ function initSpotlight() {
         sDesc.textContent = p.desc;
         if (sCat) sCat.textContent = p.category;
         if (sTech) sTech.textContent = p.tech;
-        sImg.src = p.img;
+        sImg.src = new URL(p.img, window.location.href).href;
         if (sLink) sLink.href = p.link;
 
         // 3. Add Animations Back (Fade In)
