@@ -28,9 +28,9 @@ function initSpotlight() {
         {
             title: "OHE HEALTH",
             category: "WEBSITE",
-            desc: "One of my most recent work",
+            desc: "One of my most recent works",
             tech: "UI/UX • Laravel",
-            img: "/projects/screenshot one health/Landing_Page_(Desktop).png",
+            img: "projects/screenshot one health/Landing_Page_(Desktop).png",
             link: "#gallery-one-health"
         },
         {
@@ -38,7 +38,7 @@ function initSpotlight() {
             category: "ART ACCOUNT",
             desc: "My art account where all my art is posted.",
             tech: "Drawing • Painting • Photography",
-            img: "/projects/pics/crazianpage.png",
+            img: "projects/pics/crazianpage.png",
             link: "https://github.com/CRAEZIAN"
         },
         {
@@ -46,15 +46,15 @@ function initSpotlight() {
             category: "PERSONAL INSTAGRAM ACCOUNT",
             desc: "Personal Account where I post my most recent outfits",
             tech: "Photography • Editing • Social Media",
-            img: "/projects/pics/8.png",
+            img: "projects/pics/8.png",
             link: "https://www.instagram.com/emjmg/"
         },
         {
             title: "MEDGE GUILLERMO?",
             category: "WHO IS",
-            desc: "A page dedicated abbout me hehe",
-            tech: "Baackground • Hobby",
-            img: "/projects/pics/Aboutme.jpg",
+            desc: "A page dedicated to me hehe",
+            tech: "Background • Hobby",
+            img: "projects/pics/Aboutme.jpg",
             link: "about.html"
         }
     ];
