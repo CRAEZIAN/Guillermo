@@ -48,7 +48,7 @@ function initSpotlight() {
             category: "PERSONAL INSTAGRAM ACCOUNT",
             desc: "Personal Account where I post my most recent outfits",
             tech: "Photography • Editing • Social Media",
-            img: "projects/pics/8.png",
+            img: "https://github.com/CRAEZIAN/Guillermo/blob/main/projects/pics/8.png",
             link: "https://www.instagram.com/emjmg/"
         },
         {
