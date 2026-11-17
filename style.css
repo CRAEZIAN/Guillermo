@@ -456,10 +456,10 @@ body.nav-open { overflow: hidden; }
 .blob {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -200px;
   width: 50vmax;
   z-index:0;
-  transform: 50%, 50%;
+  x-overflow: hide;
   pointer-events: none;
 }
 
