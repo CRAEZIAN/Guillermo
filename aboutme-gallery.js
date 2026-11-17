@@ -197,72 +197,80 @@
         start(s);
       });
 
-      // Manual dragging: pointer movement and strip movement use the SAME direction.
-      // Works with mouse, pen and touch at every responsive breakpoint.
+      // Manual pointer interaction: taps open images; drags move the strip
+      // in the same direction as the pointer on mouse, pen, and touch.
       strips.forEach(function (s) {
         const viewport = s.viewport;
-        let dragging = false;
-        let startX = 0;
-        let lastX = 0;
-        let didDrag = false;
-        let wasUserPaused = false;
-        let pointerId = null;
+        let pointer = null;
 
         viewport.addEventListener("pointerdown", function (e) {
           if (e.pointerType === "mouse" && e.button !== 0) return;
-          if (!s.anim || dragging) return;
-          dragging = true;
-          didDrag = false;
-          pointerId = e.pointerId;
-          startX = lastX = e.clientX;
-          wasUserPaused = s.userPaused;
+          if (!s.anim || pointer) return;
+          pointer = { id: e.pointerId, startX: e.clientX, lastX: e.clientX,
+            lastY: e.clientY, dragged: false, wasPaused: s.userPaused,
+            wasHolding: s.holding };
           s.holding = true;
           s.anim.pause();
-          viewport.classList.add("is-dragging");
-          if (viewport.setPointerCapture) viewport.setPointerCapture(e.pointerId);
+          viewport.classList.add("is-pointer-down");
         });
 
         viewport.addEventListener("pointermove", function (e) {
-          if (!dragging || !s.anim || e.pointerId !== pointerId) return;
-          const delta = e.clientX - lastX;
-          if (Math.abs(e.clientX - startX) > 4) didDrag = true;
-          if (didDrag) {
-            const duration = durationFor(s);
-            const halfWidth = s.track.scrollWidth / 2;
-            if (halfWidth > 0) {
-              // The visual strip must follow the pointer exactly:
-              // rightward drag => content moves right; leftward drag => content moves left.
-              // WAAPI progress runs opposite on left-moving strips, so invert only that timeline.
-              const timelineSign = s.goesRight ? 1 : -1;
-              let time = Number(s.anim.currentTime) || 0;
-              time += timelineSign * (delta / halfWidth) * duration;
-              s.anim.currentTime = ((time % duration) + duration) % duration;
+          if (!pointer || e.pointerId !== pointer.id || !s.anim) return;
+          const totalDelta = e.clientX - pointer.startX;
+          if (!pointer.dragged && Math.abs(totalDelta) > 5) {
+            pointer.dragged = true;
+            viewport.classList.add("is-dragging");
+            if (viewport.setPointerCapture) {
+              try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
             }
           }
-          lastX = e.clientX;
-          if (didDrag) e.preventDefault();
+          if (!pointer.dragged) return;
+          const delta = e.clientX - pointer.lastX;
+          const halfWidth = s.track.scrollWidth / 2;
+          const duration = durationFor(s);
+          if (halfWidth > 0 && duration > 0) {
+            // Right-moving rows advance their timeline on rightward drag;
+            // left-moving rows reverse their timeline. Visually, both follow the pointer.
+            const direction = s.goesRight ? 1 : -1;
+            let time = Number(s.anim.currentTime) || 0;
+            time += direction * (delta / halfWidth) * duration;
+            s.anim.currentTime = ((time % duration) + duration) % duration;
+          }
+          pointer.lastX = e.clientX;
+          pointer.lastY = e.clientY;
+          e.preventDefault();
         });
 
-        function endDrag(e) {
-          if (!dragging || (e && pointerId !== null && e.pointerId !== pointerId)) return;
-          dragging = false;
-          viewport.classList.remove("is-dragging");
-          s.holding = false;
-          s.userPaused = wasUserPaused;
-          if (didDrag) {
-            viewport.dataset.dragged = "true";
-            window.setTimeout(function () { delete viewport.dataset.dragged; }, 220);
-          }
-          if (e && viewport.hasPointerCapture && viewport.hasPointerCapture(e.pointerId)) {
-            viewport.releasePointerCapture(e.pointerId);
-          }
-          pointerId = null;
+        function restorePointerState(completed) {
+          viewport.classList.remove("is-pointer-down", "is-dragging");
+          s.holding = completed.wasHolding;
+          s.userPaused = completed.wasPaused;
           sync(s);
         }
 
-        viewport.addEventListener("pointerup", endDrag);
-        viewport.addEventListener("pointercancel", endDrag);
-        viewport.addEventListener("lostpointercapture", endDrag);
+        viewport.addEventListener("pointerup", function (e) {
+          if (!pointer || e.pointerId !== pointer.id) return;
+          const completed = pointer;
+          pointer = null;
+          if (completed.dragged) {
+            viewport.dataset.dragged = "true";
+            window.setTimeout(function () { delete viewport.dataset.dragged; }, 250);
+          } else {
+            // Handle taps explicitly so desktop clicks reliably open the carousel.
+            const frame = document.elementFromPoint(e.clientX, e.clientY)?.closest(".strip-frame");
+            if (frame && viewport.contains(frame)) openLightbox(frame.dataset.photoSrc, frame);
+          }
+          restorePointerState(completed);
+        });
+
+        ["pointercancel", "lostpointercapture"].forEach(function (eventName) {
+          viewport.addEventListener(eventName, function (e) {
+            if (!pointer || e.pointerId !== pointer.id) return;
+            const completed = pointer;
+            pointer = null;
+            restorePointerState(completed);
+          });
+        });
       });
 
       // Layered, overlapping large-image carousel inspired by the supplied reference.
@@ -310,13 +318,6 @@
         document.body.classList.remove("lightbox-open");
         if (previousFocus && previousFocus.focus) previousFocus.focus();
       }
-
-      mount.addEventListener("click", function (e) {
-        if (e.target.closest(".strip-viewport")?.dataset.dragged === "true") return;
-        const frame = e.target.closest(".strip-frame");
-        if (!frame || !mount.contains(frame)) return;
-        openLightbox(frame.dataset.photoSrc, frame);
-      });
 
       mount.addEventListener("keydown", function (e) {
         if (e.key !== "Enter" && e.key !== " ") return;
