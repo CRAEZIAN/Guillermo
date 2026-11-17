@@ -1557,7 +1557,7 @@ body.page-about {
   /* IMPORTANT: update the path if your file is in a different folder */
   background: url('aboutme.jpg') center / cover no-repeat;
 
-  transform: scale(1.04);
+  transform: scale(1.0);
   filter: brightness(0.6) contrast(1.05);
 }
 
