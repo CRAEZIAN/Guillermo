@@ -459,8 +459,6 @@ body.nav-open { overflow: hidden; }
   left: 0;
   width: 50vmax;
   z-index:0;
-  animation: move 10s ease-in-out infinite;
-  transform-origin: 50% 50%;
   pointer-events: none;
 }
 
