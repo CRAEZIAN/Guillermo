@@ -10,9 +10,8 @@
             "crown.jpg", "deer.jpg", "drink.jpg", "heavy.jpg", "murky.jpg",
             "mustache.jpg", "pierce.jpg", "reckless.jpg", "starfish.jpg",
             "sweep.jpg", "trunk.jpg", "weave.jpg", "Apple.jpg", "Artifact.jpg",
-            "Ogre.jpg", "Miniature.jpg", "Ram.jpg", "Stinky.jpg", "RamBnW.jpg",
-            "Panic.jpg", "PeopleInMyLIfe.jpg", "StinkyBnW.jpg", "StinkyColored.jpg",
-            "Smack.jpg"
+            "Ogre.jpg", "Miniature.jpg", "Ram.jpg", "RamBnW.jpg", "Smack.jpg",
+            "Panic.jpg", "PeopleInMyLife.jpg", "StinkyBnW.jpg", "StinkyColored.jpg"
           ],
           
         },
