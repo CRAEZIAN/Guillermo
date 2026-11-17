@@ -6,6 +6,7 @@
 
   <title>About - Medge Jhel M. Guillermo</title>
   <link rel="stylesheet" href="aboutme.css" />
+  <link rel="stylesheet" href="aboutme-extra.css" />
 </head>
 
 <body class="page-about">
@@ -14,10 +15,8 @@
     <span></span><span></span><span></span>
   </button>
 
-  <!-- Overlay when sidebar is open -->
   <div class="nav-overlay" id="navOverlay"></div>
 
-  <!-- Same navbar system from your index.html -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <ul class="nav-menu">
@@ -32,9 +31,6 @@
 
   <!-- =========================
        SECTION 1 (STICKY HERO)
-       - BG: aboutme.jpg (z-index: 1)
-       - Title: z-index: 10
-       - Overlay PNG appears on scroll: z-index: 50
   ========================== -->
   <section class="about-hero-wrap" id="about-hero" aria-label="About hero">
     <div class="about-hero">
@@ -42,10 +38,9 @@
 
       <h1 class="about-hero-title">
         <span class="about-hero-plus">++</span>
-        <span class="about-hero-name">MEDGE JHEL M. GUILLERMO</span>
+        <span class="about-hero-name">MEDGE JHEL <br> "Crazian" <br> GUILLERMO</span>
       </h1>
 
-      <!-- NOTE: your uploaded file is named "Aboutme.png" (capital A). -->
       <img
         class="about-hero-overlay"
         id="aboutOverlay"
@@ -63,79 +58,85 @@
   </section>
 
   <!-- =========================
-       SECTION 2
+       SECTION 2 (ABOUT – ARTIST-FIRST COLLAGE)
   ========================== -->
   <section class="about-section" id="bio">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">About Me</h2>
-        <p class="section-subtitle">A quick snapshot</p>
+        <p class="section-subtitle">The artist behind the screen</p>
       </div>
 
-      <p class="about-lead">
-        A fresh-grad creative exploring the creative industry.
-        A self-taught artist from Cavite.
+      <p class="ab-statement">
+        I’m Crazian, a self-taught multimedia artist from Cavite who
+        thinks with a <em>pencil in hand</em> first and a keyboard second.
+        <small>Fresh grad, cafe hunter, and a creative who can’t stick to one medium.</small>
       </p>
 
-      <div class="about-grid">
-        <article class="about-card">
-          <h3 class="about-card-title">What I do</h3>
-          <p class="about-card-text">UI/UX • Web Development • Prototyping • Front-end</p>
+      <div class="ab-collage">
+        <article class="ab-card ab-main">
+          <span class="ab-stamp">Main medium</span>
+          <h3>Traditional art</h3>
+          <p>
+            This is where everything starts. Paper, pencil, ink and paint: the slow,
+            messy, hands-on way of making. Every other skill I have grew out of it,
+            and my art account @crazian_art is where those pieces live.
+          </p>
+          <p class="ab-tools">Sketching • Inking • Hand-made textures</p>
         </article>
 
-        <article class="about-card">
-          <h3 class="about-card-title">Tools I like</h3>
-          <p class="about-card-text">Figma • HTML/CSS/JS • Laravel • React • MySQL</p>
+        <article class="ab-card ab-s1">
+          <h3>Painting</h3>
+          <p>Colour, mood and layers on canvas and paper.</p>
         </article>
 
-        <article class="about-card">
-          <h3 class="about-card-title">Outside tech</h3>
-          <p class="about-card-text">Art account: @crazian_art • Cafe hunting • Photography</p>
+        <article class="ab-card ab-s2">
+          <h3>Digital art</h3>
+          <p>Taking traditional sketches into screens for clean, shareable pieces.</p>
         </article>
+
+        <article class="ab-card ab-s3">
+          <h3>Photography</h3>
+          <p>Cafes, light and small everyday corners.</p>
+        </article>
+
+        <article class="ab-card ab-s4">
+          <h3>Videography</h3>
+          <p>Short clips that capture a place’s movement and mood.</p>
+        </article>
+
+        <article class="ab-card ab-s5">
+          <h3>Editing</h3>
+          <p>Cutting, grading and polishing everything into one look.</p>
+        </article>
+      </div>
+
+      <div class="ab-tech">
+        <span class="lbl">And when I build for the web:</span>
+        <span class="ab-chip">Figma</span>
+        <span class="ab-chip">HTML/CSS/JS</span>
+        <span class="ab-chip">React</span>
+        <span class="ab-chip">Laravel</span>
+        <span class="ab-chip">MySQL</span>
       </div>
     </div>
   </section>
 
   <!-- =========================
-       SECTION 3
+       SECTION 3 (GALLERY – MOVING PHOTOSTRIPS)
   ========================== -->
-  <!-- =========================
-     SECTION 3 (GALLERY / POLAROID DECK)
-========================== -->
-<section class="about-section alt gallery-section" id="timeline">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Gallery</h2>
-      <p class="section-subtitle">A few snapshots</p>
+  <section class="about-section alt gallery-section" id="timeline">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Gallery</h2>
+        <p class="section-subtitle">A few snapshots. Hover a strip to pause it.</p>
+      </div>
     </div>
 
-    <!-- Tabs -->
-    <div class="gallery-tabs" role="tablist" aria-label="Gallery categories">
-      <button class="tab-btn is-active" type="button" role="tab" aria-selected="true" data-gallery="myself">
-        Myself
-      </button>
-      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-gallery="art">
-        Art
-      </button>
-      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-gallery="photography">
-        Café
-      </button>
+    <div id="photostrips">
+      <!-- rows are built by the script below: Myself → right, Art → left, Café → right -->
     </div>
-
-    <!-- Polaroid Deck -->
-    <div class="polaroid-stage" aria-label="Polaroid deck">
-      <div class="polaroid-deck" id="polaroidDeck"></div>
-    </div>
-
-    <!-- Controls -->
-    <div class="deck-controls">
-      <button class="deck-btn" id="prevPolaroid" type="button" aria-label="Previous photo">Prev</button>
-      <button class="deck-btn" id="nextPolaroid" type="button" aria-label="Next photo">Next</button>
-    </div>
-
-  </div>
-</section>
-
+  </section>
 
   <!-- =========================
        SECTION 4 (CTA)
@@ -144,7 +145,7 @@
     <div class="container">
       <div class="cta-card">
         <h2 class="cta-title">Want to work together?</h2>
-        <p class="cta-text">Let’s talk UI/UX, web, or anything creative.</p>
+        <p class="cta-text">Let’s talk art, UI/UX, web, or anything creative.</p>
 
         <div class="cta-actions">
           <a class="btn-primary" href="index.html#contact">Message me</a>
@@ -157,6 +158,33 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
+        <!-- TODO: replace each href with your real profile link -->
+        <ul class="footer-socials" aria-label="Social links">
+          <li>
+            <a href="https://instagram.com/crazian_art" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM17.3 5.9a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/></svg>
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a href="https://facebook.com/YOUR-PROFILE" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8.2h2.8l.4-3.3h-3.2V8.4c0-.95.27-1.6 1.62-1.6h1.7V3.85c-.3-.04-1.3-.13-2.5-.13-2.5 0-4.2 1.5-4.2 4.3v2.5H7.3v3.3h2.8V22h3.4z"/></svg>
+              Facebook
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com/in/YOUR-PROFILE" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3V9.75zm6.5 0h3.8v1.54h.05c.53-1 1.84-2.04 3.78-2.04 4.04 0 4.79 2.66 4.79 6.1V21h-4v-4.9c0-1.17-.02-2.67-1.63-2.67-1.63 0-1.88 1.27-1.88 2.58V21h-4V9.75z"/></svg>
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a href="https://tiktok.com/@YOUR-PROFILE" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.2v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .85.1V9.3a6.1 6.1 0 1 0 5.25 6.05V8.6a7.7 7.7 0 0 0 4.4 1.4V6.8a4.5 4.5 0 0 1-4.4-4.8z"/></svg>
+              TikTok
+            </a>
+          </li>
+        </ul>
         <p>&copy; 2025. All rights reserved.</p>
       </div>
     </div>
@@ -164,285 +192,161 @@
 
   <script src="app.js"></script>
 
-  <!-- Scroll-driven reveal for the overlay PNG (safe-only on about page) -->
+  <!-- Scroll-driven reveal for the overlay PNG -->
   <script>
     (function () {
-        const wrap = document.querySelector(".about-hero-wrap");
-        const overlay = document.getElementById("aboutOverlay");
-        if (!wrap || !overlay) return;
+      const wrap = document.querySelector(".about-hero-wrap");
+      const overlay = document.getElementById("aboutOverlay");
+      if (!wrap || !overlay) return;
 
-        // If user prefers reduced motion, just show it (no animation)
-        const prefersReduced =
+      const prefersReduced =
         window.matchMedia &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        if (prefersReduced) {
+      if (prefersReduced) {
         overlay.style.opacity = "1";
         overlay.style.transform = "translateY(0px)";
         return;
-        }
+      }
 
-        // Tweak these to taste
-        const start = 0.10;   // when reveal starts (0..1)
-        const end = 0.9;     // when reveal ends (0..1)
-        const fly = 50;       // px: starts lower and flies up
-        const baseScale = 0.92;
-        const scaleGain = 0.10;
+      const start = 0.10;
+      const end = 0.9;
+      const fly = 50;
+      const baseScale = 0.92;
+      const scaleGain = 0.10;
 
-        let ticking = false;
+      let ticking = false;
 
-        function clamp(n, a, b) {
-        return Math.min(Math.max(n, a), b);
-        }
+      function clamp(n, a, b) { return Math.min(Math.max(n, a), b); }
+      function easeOutQuad(x) { return 1 - (1 - x) * (1 - x); }
 
-        function easeOutQuad(x) {
-        return 1 - (1 - x) * (1 - x);
-        }
-
-        function update() {
+      function update() {
         const rect = wrap.getBoundingClientRect();
         const vh = window.innerHeight || 1;
-
-        // progress inside wrapper (0..1)
         const total = Math.max(rect.height - vh, 1);
         const scrolled = clamp(-rect.top, 0, total);
         const t = scrolled / total;
-
-        // map into reveal window (0..1)
         const p = clamp((t - start) / (end - start), 0, 1);
         const eased = easeOutQuad(p);
 
-        // fly up + scale in + fade in
         const y = (1 - eased) * fly;
         const s = baseScale + scaleGain * eased;
 
         overlay.style.opacity = eased.toFixed(3);
         overlay.style.transform = `translateY(${y.toFixed(1)}px) scale(${s.toFixed(3)})`;
-
         ticking = false;
-        }
+      }
 
-        function onScroll() {
+      function onScroll() {
         if (ticking) return;
         ticking = true;
         requestAnimationFrame(update);
-        }
+      }
 
-        window.addEventListener("scroll", onScroll, { passive: true });
-        window.addEventListener("resize", update);
-        update();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", update);
+      update();
     })();
-    
-    </script>
-    <script>
-  (function () {
-    const deckEl = document.getElementById("polaroidDeck");
-    if (!deckEl) return;
+  </script>
 
-    const tabs = Array.from(document.querySelectorAll(".tab-btn[data-gallery]"));
-    const prevBtn = document.getElementById("prevPolaroid");
-    const nextBtn = document.getElementById("nextPolaroid");
+  <!-- Moving photostrips: alternate direction per category -->
+  <script>
+    (function () {
+      const mount = document.getElementById("photostrips");
+      if (!mount) return;
 
-    // ✅ Update these to match your real folder names + image filenames
-    const galleries = {
-      myself: {
-        folder: "Gallery/myself/",
-        files: ["5.png", "6.png", "7.png", "8.png", "10.png", "14.png"],
-      },
-      art: {
-        folder: "Gallery/art/",
-        files: [
-            "crown.jpg",
-            "deer.jpg",
-            "drink.jpg",
-            "heavy.jpg",
-            "murky.jpg",
-            "mustache.jpg",
-            "pierce.jpg",
-            "reckless.jpg",
-            "starfish.jpg",
-            "sweep.jpg",
-            "trunk.jpg",
-            "weave.jpg",
-        ],  
-      },
-      photography: {
-        folder: "Gallery/cafe/",
-        files: [
-            "Angel's Cat Cafe.jpg",
-            "Been There Done That.jpg",
-            "Coffee idea.jpg",
-            "Fikastalle.jpg",
-            "HoHo Naicha.jpg",
-            "Pick-Up Coffee.jpg",
-            "Pine Valley.jpg",
-            "Quatro Marias.jpg",
-            "Sabreena's.jpg",
-            "Starbucks Downhill.jpg",
-            "Sugar Cafe.jpg",
-            "Sweet and Savor.jpg",
-            "Tim's Cup.jpg",
-            "What If Coffee.jpg",
-            "Y Dough.jpg",
-        ],
-      },
-    };
+      // Order matters: directions alternate right, left, right...
+      const categories = [
+        {
+          title: "Myself",
+          note: "moving right",
+          folder: "Gallery/myself/",
+          files: ["5.png", "6.png", "7.png", "8.png", "10.png", "14.png"],
+        },
+        {
+          title: "Art",
+          note: "moving left",
+          folder: "Gallery/art/",
+          files: [
+            "crown.jpg", "deer.jpg", "drink.jpg", "heavy.jpg", "murky.jpg",
+            "mustache.jpg", "pierce.jpg", "reckless.jpg", "starfish.jpg",
+            "sweep.jpg", "trunk.jpg", "weave.jpg",
+          ],
+        },
+        {
+          title: "Café",
+          note: "moving right",
+          folder: "Gallery/cafe/",
+          files: [
+            "Angel's Cat Cafe.jpg", "Been There Done That.jpg", "Coffee idea.jpg",
+            "Fikastalle.jpg", "HoHo Naicha.jpg", "Pick-Up Coffee.jpg",
+            "Pine Valley.jpg", "Quatro Marias.jpg", "Sabreena's.jpg",
+            "Starbucks Downhill.jpg", "Sugar Cafe.jpg", "Sweet and Savor.jpg",
+            "Tim's Cup.jpg", "What If Coffee.jpg", "Y Dough.jpg",
+          ],
+        },
+      ];
 
-    // Stack “look” (offsets/rotations for polaroid pile)
-    const STACK = [
-      { y: 0,  r: -2.5, s: 1.00, z: 50 },
-      { y: 10, r:  2.2, s: 0.985, z: 40 },
-      { y: 20, r: -3.4, s: 0.970, z: 30 },
-      { y: 30, r:  3.0, s: 0.955, z: 20 },
-      { y: 40, r: -1.6, s: 0.940, z: 10 },
-    ];
+      const MIN_FRAMES = 12;      // one "set" must be wide enough to cover big screens
+      const SECONDS_PER_FRAME = 4; // lower = faster
 
-    let currentKey = "myself";
-    let topIndex = 0;
-    let animating = false;
+      function frame(folder, file) {
+        const fig = document.createElement("figure");
+        fig.className = "strip-frame";
+        fig.style.margin = "0 14px 0 0";
 
-    function clampIndex(n, len) {
-      return ((n % len) + len) % len;
-    }
+        const img = document.createElement("img");
+        img.src = folder + encodeURIComponent(file);
+        const name = file.replace(/\.[^/.]+$/, "");
+        img.alt = name;
+        img.loading = "lazy";
+        img.decoding = "async";
 
-    function getList() {
-      return galleries[currentKey]?.files || [];
-    }
+        const cap = document.createElement("figcaption");
+        cap.textContent = name;
 
-    function getSrc(file) {
-      return (galleries[currentKey]?.folder || "/gallery/") + file;
-    }
-
-    function setActiveTab(key) {
-      currentKey = key;
-      topIndex = 0;
-
-      tabs.forEach((btn) => {
-        const active = btn.dataset.gallery === key;
-        btn.classList.toggle("is-active", active);
-        btn.setAttribute("aria-selected", active ? "true" : "false");
-      });
-
-      renderDeck(true);
-    }
-
-    function makeCard(src, captionText) {
-      const card = document.createElement("article");
-      card.className = "polaroid-card";
-
-      const photo = document.createElement("div");
-      photo.className = "polaroid-photo";
-
-      const img = document.createElement("img");
-      img.src = src;
-      img.alt = captionText || "Gallery photo";
-      img.loading = "eager";
-      img.decoding = "async";
-
-      const caption = document.createElement("div");
-      caption.className = "polaroid-caption";
-      caption.textContent = captionText || "";
-
-      photo.appendChild(img);
-      card.appendChild(photo);
-      card.appendChild(caption);
-
-      return card;
-    }
-
-    function renderDeck(animateInPrev = false) {
-      const list = getList();
-      deckEl.innerHTML = "";
-
-      if (!list.length) {
-        const empty = document.createElement("div");
-        empty.style.opacity = "0.8";
-        empty.style.textAlign = "center";
-        empty.innerHTML = "No images yet. Add files to your folder and update the JS list.";
-        deckEl.appendChild(empty);
-        return;
+        fig.appendChild(img);
+        fig.appendChild(cap);
+        return fig;
       }
 
-      const count = Math.min(STACK.length, list.length);
+      categories.forEach((cat, i) => {
+        if (!cat.files.length) return;
 
-      for (let i = 0; i < count; i++) {
-        const idx = clampIndex(topIndex + i, list.length);
-        const file = list[idx];
-        const src = getSrc(file);
+        const row = document.createElement("div");
+        row.className = "strip-row " + (i % 2 === 0 ? "dir-right" : "dir-left");
 
-        const card = makeCard(src, file.replace(/\.[^/.]+$/, "")); // caption = filename (no extension)
+        const label = document.createElement("h3");
+        label.className = "strip-label";
+        label.innerHTML = cat.title + " <small>" + cat.note + "</small>";
 
-        const st = STACK[i];
-        card.style.zIndex = String(st.z);
-        card.style.transform = `translateY(${st.y}px) rotate(${st.r}deg) scale(${st.s})`;
+        const viewport = document.createElement("div");
+        viewport.className = "strip-viewport";
 
-        if (i === 0) {
-          card.classList.add("is-top");
-          if (animateInPrev) card.classList.add("fly-in-prev");
+        const track = document.createElement("div");
+        track.className = "strip-track";
+
+        // Repeat the file list until one set has enough frames
+        const set = [];
+        while (set.length < MIN_FRAMES) set.push(...cat.files);
+
+        // Two identical sets => translating by -50% loops seamlessly
+        for (let copy = 0; copy < 2; copy++) {
+          set.forEach((file) => {
+            const f = frame(cat.folder, file);
+            if (copy === 1) f.setAttribute("aria-hidden", "true");
+            track.appendChild(f);
+          });
         }
 
-        deckEl.appendChild(card);
-      }
-    }
+        track.style.setProperty("--strip-dur", set.length * SECONDS_PER_FRAME + "s");
 
-    function nextCard() {
-      const list = getList();
-      if (animating || list.length <= 1) return;
-
-      animating = true;
-      const topCard = deckEl.querySelector(".polaroid-card.is-top");
-      if (!topCard) {
-        animating = false;
-        return;
-      }
-
-      // Animate the top polaroid “away”
-      topCard.classList.add("fly-next");
-
-      topCard.addEventListener(
-        "transitionend",
-        () => {
-          topIndex = clampIndex(topIndex + 1, list.length);
-          renderDeck(false);
-          animating = false;
-        },
-        { once: true }
-      );
-    }
-
-    function prevCard() {
-      const list = getList();
-      if (animating || list.length <= 1) return;
-
-      animating = true;
-      topIndex = clampIndex(topIndex - 1, list.length);
-
-      // Render and animate the new top card “in”
-      renderDeck(true);
-
-      // release lock after animation duration
-      window.setTimeout(() => (animating = false), 430);
-    }
-
-    // Tab clicks
-    tabs.forEach((btn) => {
-      btn.addEventListener("click", () => setActiveTab(btn.dataset.gallery));
-    });
-
-    // Controls
-    nextBtn?.addEventListener("click", nextCard);
-    prevBtn?.addEventListener("click", prevCard);
-
-    // Optional: keyboard arrows when section is visible
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") nextCard();
-      if (e.key === "ArrowLeft") prevCard();
-    });
-
-    // Init
-    setActiveTab(currentKey);
-  })();
-</script>
-
+        viewport.appendChild(track);
+        row.appendChild(label);
+        row.appendChild(viewport);
+        mount.appendChild(row);
+      });
+    })();
+  </script>
 </body>
 </html>
