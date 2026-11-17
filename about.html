@@ -6,6 +6,7 @@
 
   <title>About - Medge Jhel M. Guillermo</title>
   <link rel="stylesheet" href="aboutme.css" />
+
 </head>
 
 <body class="page-about">
@@ -37,7 +38,7 @@
 
       <h1 class="about-hero-title">
         <span class="about-hero-plus">++</span>
-        <span class="about-hero-name">MEDGE JHEL <br> GUILLERMO</span>
+        <span class="about-hero-name">MEDGE JHEL <br> "Crazian" <br> GUILLERMO</span>
       </h1>
 
       <img
@@ -77,8 +78,8 @@
           <span class="ab-stamp">Main medium</span>
           <h3>Traditional art</h3>
           <p>
-            This is where everything starts. Paper, pencil, ink, and paint: the slow,
-            messy, hands-on way of making. Every other skill I have grown out of it,
+            This is where everything starts. Paper, pencil, ink and paint: the slow,
+            messy, hands-on way of making. Every other skill I have grew out of it,
             and my art account @crazian_art is where those pieces live.
           </p>
           <p class="ab-tools">Sketching • Inking • Hand-made textures</p>
@@ -96,7 +97,7 @@
 
         <article class="ab-card ab-s3">
           <h3>Photography</h3>
-          <p>Cafes, light, and small everyday corners.</p>
+          <p>Cafes, light and small everyday corners.</p>
         </article>
 
         <article class="ab-card ab-s4">
@@ -106,7 +107,7 @@
 
         <article class="ab-card ab-s5">
           <h3>Editing</h3>
-          <p>Cutting, grading, and polishing everything into one look.</p>
+          <p>Cutting, grading and polishing everything into one look.</p>
         </article>
       </div>
 
@@ -128,7 +129,7 @@
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Gallery</h2>
-        <p class="section-subtitle">A few snapshots. Hover a strip to pause it.</p>
+        <p class="section-subtitle">A few snapshots. Hover or tap a strip to pause it.</p>
       </div>
     </div>
 
@@ -257,15 +258,11 @@
       // Order matters: directions alternate right, left, right...
       const categories = [
         {
-          title: "Myself",
-          note: "moving right",
-          folder: "Gallery/myself/",
+          title: "Myself", note: "moving right", folder: "Gallery/myself/",
           files: ["5.png", "6.png", "7.png", "8.png", "10.png", "14.png"],
         },
         {
-          title: "Art",
-          note: "moving left",
-          folder: "Gallery/art/",
+          title: "Art", note: "moving left", folder: "Gallery/art/",
           files: [
             "crown.jpg", "deer.jpg", "drink.jpg", "heavy.jpg", "murky.jpg",
             "mustache.jpg", "pierce.jpg", "reckless.jpg", "starfish.jpg",
@@ -273,9 +270,7 @@
           ],
         },
         {
-          title: "Café",
-          note: "moving right",
-          folder: "Gallery/cafe/",
+          title: "Café", note: "moving right", folder: "Gallery/cafe/",
           files: [
             "Angel's Cat Cafe.jpg", "Been There Done That.jpg", "Coffee idea.jpg",
             "Fikastalle.jpg", "HoHo Naicha.jpg", "Pick-Up Coffee.jpg",
@@ -286,20 +281,37 @@
         },
       ];
 
-      const MIN_FRAMES = 12;      // one "set" must be wide enough to cover big screens
-      const SECONDS_PER_FRAME = 4; // lower = faster
+      // Speed in pixels per second (lower = slower). Phones are a bit slower.
+      const SPEED_DESKTOP = 60;
+      const SPEED_MOBILE = 40;
 
-      function frame(folder, file) {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const mobileQuery = window.matchMedia("(max-width: 600px)");
+      const canAnimate = typeof Element.prototype.animate === "function";
+
+      function pxPerSecond() {
+        const base = mobileQuery.matches ? SPEED_MOBILE : SPEED_DESKTOP;
+        return reduceMotion ? base * 0.4 : base; // slower, never frozen
+      }
+
+      // One set must be wider than the screen so the loop never shows a gap
+      const minFrames = Math.ceil(Math.max(window.screen.width, window.innerWidth) / 170) + 2;
+
+      function makeFrame(folder, file) {
         const fig = document.createElement("figure");
         fig.className = "strip-frame";
-        fig.style.margin = "0 14px 0 0";
 
         const img = document.createElement("img");
         img.src = folder + encodeURIComponent(file);
         const name = file.replace(/\.[^/.]+$/, "");
         img.alt = name;
-        img.loading = "lazy";
         img.decoding = "async";
+        // eager on purpose: lazy images inside a moving strip can stay blank on phones
+        img.loading = "eager";
+        img.addEventListener("error", function () {
+          fig.classList.add("is-missing");
+          console.warn("Photostrip: image not found ->", img.src);
+        });
 
         const cap = document.createElement("figcaption");
         cap.textContent = name;
@@ -309,41 +321,133 @@
         return fig;
       }
 
-      categories.forEach((cat, i) => {
+      const strips = [];
+
+      categories.forEach(function (cat, i) {
         if (!cat.files.length) return;
+        const goesRight = i % 2 === 0;
 
         const row = document.createElement("div");
-        row.className = "strip-row " + (i % 2 === 0 ? "dir-right" : "dir-left");
+        row.className = "strip-row " + (goesRight ? "dir-right" : "dir-left");
+
+        const head = document.createElement("div");
+        head.className = "strip-head";
 
         const label = document.createElement("h3");
         label.className = "strip-label";
         label.innerHTML = cat.title + " <small>" + cat.note + "</small>";
 
+        const toggle = document.createElement("button");
+        toggle.type = "button";
+        toggle.className = "strip-toggle";
+        toggle.textContent = "Pause";
+        toggle.setAttribute("aria-label", "Pause " + cat.title + " photostrip");
+
+        head.appendChild(label);
+        head.appendChild(toggle);
+
         const viewport = document.createElement("div");
         viewport.className = "strip-viewport";
-
         const track = document.createElement("div");
         track.className = "strip-track";
 
-        // Repeat the file list until one set has enough frames
         const set = [];
-        while (set.length < MIN_FRAMES) set.push(...cat.files);
+        while (set.length < Math.max(minFrames, 12)) set.push.apply(set, cat.files);
 
-        // Two identical sets => translating by -50% loops seamlessly
+        // Two identical sets => sliding by 50% loops seamlessly
         for (let copy = 0; copy < 2; copy++) {
-          set.forEach((file) => {
-            const f = frame(cat.folder, file);
+          set.forEach(function (file) {
+            const f = makeFrame(cat.folder, file);
             if (copy === 1) f.setAttribute("aria-hidden", "true");
             track.appendChild(f);
           });
         }
 
-        track.style.setProperty("--strip-dur", set.length * SECONDS_PER_FRAME + "s");
-
         viewport.appendChild(track);
-        row.appendChild(label);
+        row.appendChild(head);
         row.appendChild(viewport);
         mount.appendChild(row);
+
+        strips.push({ cat: cat, goesRight: goesRight, track: track, viewport: viewport,
+                      toggle: toggle, anim: null,
+                      userPaused: false, holding: false, visible: true });
+      });
+
+      function durationFor(s) {
+        const half = s.track.scrollWidth / 2;           // width of one full set
+        return Math.max(half / pxPerSecond(), 5) * 1000; // ms
+      }
+
+      function sync(s) {
+        const stop = s.userPaused || s.holding || !s.visible;
+        if (s.anim) { stop ? s.anim.pause() : s.anim.play(); }
+        s.toggle.textContent = s.userPaused ? "Play" : "Pause";
+        s.toggle.setAttribute("aria-label",
+          (s.userPaused ? "Play " : "Pause ") + s.cat.title + " photostrip");
+      }
+
+      function start(s) {
+        const dur = durationFor(s);
+        const from = s.goesRight ? "translateX(-50%)" : "translateX(0)";
+        const to   = s.goesRight ? "translateX(0)"    : "translateX(-50%)";
+
+        if (canAnimate) {
+          // Web Animations are not affected by the global "animation: none" reduced-motion rule
+          s.anim = s.track.animate(
+            [{ transform: from }, { transform: to }],
+            { duration: dur, iterations: Infinity, easing: "linear" }
+          );
+        } else {
+          // Fallback to the CSS @keyframes
+          s.track.classList.add("css-anim");
+          s.track.style.animationDuration = dur + "ms";
+        }
+        sync(s);
+      }
+
+      strips.forEach(function (s) {
+        // Pause button
+        s.toggle.addEventListener("click", function () {
+          s.userPaused = !s.userPaused;
+          sync(s);
+        });
+
+        // Hover pauses with a mouse; press-and-hold pauses on touch
+        s.viewport.addEventListener("pointerenter", function (e) {
+          if (e.pointerType === "mouse") { s.holding = true; sync(s); }
+        });
+        s.viewport.addEventListener("pointerdown", function (e) {
+          if (e.pointerType !== "mouse") { s.holding = true; sync(s); }
+        });
+        ["pointerleave", "pointerup", "pointercancel"].forEach(function (ev) {
+          s.viewport.addEventListener(ev, function () { s.holding = false; sync(s); });
+        });
+
+        // Only animate while on screen (saves battery on phones)
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver(function (entries) {
+            s.visible = entries[0].isIntersecting;
+            sync(s);
+          }, { threshold: 0 }).observe(s.viewport);
+        }
+
+        start(s);
+      });
+
+      // Keep speed right after rotating the phone / resizing, without jumping
+      let resizeTimer;
+      window.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          strips.forEach(function (s) {
+            if (!s.anim) return;
+            const oldDur = s.anim.effect.getTiming().duration;
+            const progress = ((s.anim.currentTime || 0) % oldDur) / oldDur;
+            const newDur = durationFor(s);
+            s.anim.effect.updateTiming({ duration: newDur });
+            s.anim.currentTime = progress * newDur;
+          });
+        }, 200);
       });
     })();
   </script>
