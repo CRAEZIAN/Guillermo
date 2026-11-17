@@ -2167,7 +2167,9 @@ img, video, canvas, svg {
 .strip-track { will-change: transform; }
 .strip-frame { cursor: zoom-in; }
 .strip-frame img { pointer-events: none; -webkit-user-drag: none; }
-.strip-viewport.is-dragging .strip-frame { pointer-events: none; }
+/* Keep frames hit-testable: pointerup distinguishes taps from drags. */
+.strip-viewport.is-pointer-down { cursor: grabbing; }
+.strip-viewport.is-dragging .strip-frame { pointer-events: auto; }
 
 .photo-lightbox[hidden] { display: none !important; }
 .photo-lightbox {
