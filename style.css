@@ -459,6 +459,7 @@ body.nav-open { overflow: hidden; }
   left: 0;
   width: 50vmax;
   z-index:0;
+  transform: 50%, 50%;
   pointer-events: none;
 }
 
